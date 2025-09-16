@@ -1,4 +1,4 @@
-import LoginPage from '@/Pages/loginPage.vue'
+import LoginPage from '@/Pages/registerPage.vue'
 import { createRouter, createWebHistory } from 'vue-router'
 
 const router = createRouter({
