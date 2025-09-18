@@ -1,10 +1,9 @@
 using Application.Common.Interfaces;   // IAuthService, IUserRepository, IPasswordHasher
-using Application.Services;           // AuthService (nếu bạn có)
+using Application.Services;           
 using Infrastructure.Data;            // TodoApp2Context
-using Infrastructure.Repositories;    // UserRepository       // PasswordHasher (nếu bạn có)
-using Microsoft.AspNetCore.Identity;
+using Infrastructure.Repositories;    // UserRepository     
 using Microsoft.EntityFrameworkCore;  // UseSqlServer
-using Infrastructure.Services;
+using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args); 
 
@@ -20,10 +19,28 @@ builder.Services.AddDbContext<TodoApp2Context>(options =>
 builder.Services.AddScoped<IUserRepository, UserRepository>(); 
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IPasswordHasher, PasswordHash>();
-
+builder.Services.AddScoped<AuthService>();
 builder.Services.AddControllers();
 
-var app = builder.Build();          
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "Todo API", Version = "v1" });
+});
+
+var app = builder.Build();
+
+// Chỉ định môi trường, hoặc bật luôn
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "Todo API v1");
+        
+    });
+}
 
 app.MapControllers();
 app.Run();
+
