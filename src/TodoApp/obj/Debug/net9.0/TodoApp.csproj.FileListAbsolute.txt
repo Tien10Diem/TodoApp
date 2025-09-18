@@ -31,3 +31,6 @@ C:\Users\ASUS\TodoApp\TodoApp\obj\Debug\net9.0\refint\TodoApp.dll
 C:\Users\ASUS\TodoApp\TodoApp\obj\Debug\net9.0\TodoApp.pdb
 C:\Users\ASUS\TodoApp\TodoApp\obj\Debug\net9.0\TodoApp.genruntimeconfig.cache
 C:\Users\ASUS\TodoApp\TodoApp\obj\Debug\net9.0\ref\TodoApp.dll
+C:\Users\ASUS\TodoApp\src\TodoApp\obj\Debug\net9.0\TodoApp.dll
+C:\Users\ASUS\TodoApp\src\TodoApp\obj\Debug\net9.0\refint\TodoApp.dll
+C:\Users\ASUS\TodoApp\src\TodoApp\obj\Debug\net9.0\TodoApp.pdb
