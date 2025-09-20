@@ -17,6 +17,20 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 builder.Services.AddDbContext<TodoApp2Context>(options =>
     options.UseSqlServer(connectionString));
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowFrontendDev", policy =>
+    {
+        policy
+            .WithOrigins("http://localhost:5173")   // <--- frontend origin (đổi nếu cần)
+            .AllowAnyHeader()                       // allow Content-Type, Authorization, ...
+            .AllowAnyMethod()                       // allow GET, POST, PUT, DELETE, OPTIONS...
+                                                    // .AllowCredentials()                   // uncomment if you use cookies/auth credentials
+            ;
+    });
+});
+
+
 
 // Đăng ký DI cho repository & service
 builder.Services.AddScoped<IUserRepository, UserRepository>(); 
@@ -90,6 +104,9 @@ if (app.Environment.IsDevelopment())
 
     });
 }
+
+app.UseCors("AllowFrontendDev");
+
 app.UseAuthentication();
 app.UseAuthorization();
 

@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import { buttonT } from '@/stores/btRandL';
+import { RouterLink } from 'vue-router';
 const bt = buttonT();
 
 </script>
@@ -20,13 +21,13 @@ const bt = buttonT();
       </button>
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
-          <button class="nav-link active res" @click="bt.setButtonText('Register')">
+          <RouterLink to="/register" class="nav-link active res" @click="bt.setButtonText('Register')">
             Register
-          </button>
+          </RouterLink>
 
-          <button class="nav-link active log" @click="bt.setButtonText('Login')">
+          <RouterLink to="/login" class="nav-link active log" @click="bt.setButtonText('Login')">
             Login
-          </button>
+          </RouterLink>
         </div>
       </div>
     </div>

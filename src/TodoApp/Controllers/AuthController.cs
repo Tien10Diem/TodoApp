@@ -50,7 +50,7 @@ namespace TodoApp.Controllers
             {
                 message = "Login successfully",
                 AccessToken = token,
-                expriseIn = 60 * 60
+                expriseIn = 60 * 1
              });
         }
 

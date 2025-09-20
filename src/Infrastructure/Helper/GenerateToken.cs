@@ -10,7 +10,7 @@ namespace Infrastructure.Helper
 {
     public static class JwtHelper
     {
-        public static string GenerateToken(User user, IConfiguration config, int expiresMinutes = 60)
+        public static string GenerateToken(User user, IConfiguration config, int expiresMinutes = 1)
         {
             if (user == null) throw new ArgumentNullException(nameof(user));
             
