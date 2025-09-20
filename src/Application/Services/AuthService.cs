@@ -44,14 +44,14 @@ public class AuthService : IAuthService
 
     }
 
-    public async Task<bool> LoginAsync(loginRequestDTO request, CancellationToken ct = default)
+    public async Task<User?> LoginAsync(loginRequestDTO request, CancellationToken ct = default)
     {
         var userFind = await _user.GetByUserOrEmailAsync(request.UserName, request.UserEmail);
-        if (userFind is null) return false;
+        if (userFind is null) return null;
 
         var ok = _passhash.Verify(request.UserPassword, userFind.UserPasswordHash);
-        if (ok) return true;
-        else return false;
+        if (ok) return userFind;
+        else return null;
     }
 
 

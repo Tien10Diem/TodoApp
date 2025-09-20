@@ -14,6 +14,9 @@ namespace Infrastructure.Services
         {
             if (string.IsNullOrEmpty(token)) throw new ArgumentNullException(nameof(token));
 
+            var secret = config["Jwt:key"];
+            if (string.IsNullOrWhiteSpace(secret)) throw new InvalidDataException("Jwt missing");
+
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.UTF8.GetBytes(config["Jwt:Key"]!);
 

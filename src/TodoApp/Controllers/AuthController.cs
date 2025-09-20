@@ -3,7 +3,9 @@ using Application.DTOs;
 using Application.Services;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
-
+using Microsoft.Extensions.Configuration;
+using Infrastructure.Helper;
+using Azure.Core;
 
 namespace TodoApp.Controllers
 {
@@ -12,9 +14,11 @@ namespace TodoApp.Controllers
     public class AuthController : ControllerBase
     {
         private readonly AuthService _db;
-        public AuthController(AuthService db)
+        private readonly IConfiguration _config;
+        public AuthController(AuthService db, IConfiguration config)
         {
             _db = db;
+            _config = config;
         }
 
         [HttpPost("Register")]
@@ -37,22 +41,35 @@ namespace TodoApp.Controllers
             if (!ModelState.IsValid) return ValidationProblem(ModelState);
 
             var ok = await _db.LoginAsync(request, ct);
-            if (!ok) return Unauthorized(new { message = "Invalid credentials" });
+            
+            if (ok==null) return Unauthorized(new { message = "Invalid credentials" });
 
-            return Ok(new { message = "Login successfully" });
+            var token = Infrastructure.Helper.JwtHelper.GenerateToken(ok, _config);
+
+            return Ok(new
+            {
+                message = "Login successfully",
+                AccessToken = token,
+                expriseIn = 60 * 60
+             });
         }
 
         [Authorize]
         [HttpGet("profile")]
         public IActionResult GetProfile()
         {
-            // Lấy id theo ClaimTypes.NameIdentifier
-            var userId = User.FindFirst(ClaimTypes.NameIdentifier);
-            // User.Identity.Name lấy từ claim ClaimTypes.Name
-            var username = User.Identity?.Name;
+            var userIdStr = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            if (string.IsNullOrWhiteSpace(userIdStr))
+                return Unauthorized(new { message = "User Id missing in token." });
+
+            if (!int.TryParse(userIdStr, out var userId))
+                return BadRequest(new { message = "User Id in token is invalid." });
+
+            var username = User.Identity?.Name ?? "unknown";
 
             return Ok(new { userId, username });
         }
+
 
 
     }

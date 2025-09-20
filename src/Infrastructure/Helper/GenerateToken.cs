@@ -1,4 +1,4 @@
-using System;
+
 using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 using Microsoft.Extensions.Configuration;
@@ -6,13 +6,15 @@ using Microsoft.IdentityModel.Tokens;
 using Domain.Entities;
 using System.Security.Claims;
 
-namespace YourApp.Infrastructure.Security
+namespace Infrastructure.Helper
 {
     public static class JwtHelper
     {
         public static string GenerateToken(User user, IConfiguration config, int expiresMinutes = 60)
         {
             if (user == null) throw new ArgumentNullException(nameof(user));
+            
+            var secret = config["Jwt:Key"] ?? throw new InvalidOperationException("Missing Jwt:Key");
 
             var jti = Guid.NewGuid().ToString();
 
@@ -24,6 +26,7 @@ namespace YourApp.Infrastructure.Security
                 new Claim(JwtRegisteredClaimNames.Jti, jti),
             };
 
+            
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["Jwt:Key"]!));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
