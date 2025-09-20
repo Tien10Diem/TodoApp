@@ -1,10 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
-using Application.Common.Interfaces;
 using Application.DTOs;
-using System.Threading;
-using System.Threading.Tasks;
 using Application.Services;
-using Azure.Messaging;
+using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
+
 
 namespace TodoApp.Controllers
 {
@@ -42,6 +41,19 @@ namespace TodoApp.Controllers
 
             return Ok(new { message = "Login successfully" });
         }
+
+        [Authorize]
+        [HttpGet("profile")]
+        public IActionResult GetProfile()
+        {
+            // Lấy id theo ClaimTypes.NameIdentifier
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier);
+            // User.Identity.Name lấy từ claim ClaimTypes.Name
+            var username = User.Identity?.Name;
+
+            return Ok(new { userId, username });
+        }
+
 
     }
 }

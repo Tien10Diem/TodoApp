@@ -120,3 +120,12 @@ C:\Users\ASUS\TodoApp\src\TodoApp\obj\Debug\net9.0\staticwebassets.build.endpoin
 C:\Users\ASUS\TodoApp\src\TodoApp\obj\Debug\net9.0\TodoApp.csproj.Up2Date
 C:\Users\ASUS\TodoApp\src\TodoApp\obj\Debug\net9.0\TodoApp.genruntimeconfig.cache
 C:\Users\ASUS\TodoApp\src\TodoApp\obj\Debug\net9.0\ref\TodoApp.dll
+C:\Users\ASUS\TodoApp\src\TodoApp\bin\Debug\net9.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\ASUS\TodoApp\src\TodoApp\bin\Debug\net9.0\Microsoft.Extensions.Caching.Abstractions.dll
+C:\Users\ASUS\TodoApp\src\TodoApp\bin\Debug\net9.0\Microsoft.Extensions.Caching.StackExchangeRedis.dll
+C:\Users\ASUS\TodoApp\src\TodoApp\bin\Debug\net9.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+C:\Users\ASUS\TodoApp\src\TodoApp\bin\Debug\net9.0\Microsoft.Extensions.Logging.Abstractions.dll
+C:\Users\ASUS\TodoApp\src\TodoApp\bin\Debug\net9.0\Microsoft.Extensions.Options.dll
+C:\Users\ASUS\TodoApp\src\TodoApp\bin\Debug\net9.0\Microsoft.Extensions.Primitives.dll
+C:\Users\ASUS\TodoApp\src\TodoApp\bin\Debug\net9.0\Pipelines.Sockets.Unofficial.dll
+C:\Users\ASUS\TodoApp\src\TodoApp\bin\Debug\net9.0\StackExchange.Redis.dll
