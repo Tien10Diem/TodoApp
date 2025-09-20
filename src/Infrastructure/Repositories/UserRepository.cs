@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Application.Common.Interfaces;
 using Infrastructure.Data;
 using Domain.Entities;
+using Application.DTOs;
 
 namespace Infrastructure.Repositories;
 
@@ -29,4 +30,19 @@ public class UserRepository : IUserRepository
             (!string.IsNullOrEmpty(userName) && u.UserName == userName) ||
             (!string.IsNullOrEmpty(Email) && u.UserEmail == Email), ct);
     }
+
+    public async Task<PagedResult<User?>> GetUsersPagedAsync(
+    int pageNumber, 
+    int pageSize, 
+    CancellationToken ct = default)
+{
+    var totalCount = await _db.Users.CountAsync(ct);
+    
+    var users = await _db.Users
+        .Skip((pageNumber - 1) * pageSize)
+        .Take(pageSize)
+        .ToListAsync(ct);
+        
+    return new PagedResult<User?>(users, totalCount, pageNumber, pageSize);
+}
 }

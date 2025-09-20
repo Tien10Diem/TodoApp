@@ -7,6 +7,7 @@ using Microsoft.OpenApi.Models;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using Infrastructure.Helper;
 
 var builder = WebApplication.CreateBuilder(args); 
 
@@ -22,7 +23,7 @@ builder.Services.AddCors(options =>
     options.AddPolicy("AllowFrontendDev", policy =>
     {
         policy
-            .WithOrigins("http://localhost:5173")   // <--- frontend origin (đổi nếu cần)
+            .WithOrigins("http://localhost:5173")   // <--- frontend origin 
             .AllowAnyHeader()                       // allow Content-Type, Authorization, ...
             .AllowAnyMethod()                       // allow GET, POST, PUT, DELETE, OPTIONS...
                                                     // .AllowCredentials()                   // uncomment if you use cookies/auth credentials
@@ -38,6 +39,7 @@ builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IPasswordHasher, PasswordHash>();
 builder.Services.AddScoped<IAuthService, AuthService>();    
 builder.Services.AddScoped<Application.Services.AuthService>();
+builder.Services.AddScoped<IQuery, QueryTable>();
 
 builder.Services.AddControllers();
 
