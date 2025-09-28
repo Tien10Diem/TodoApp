@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Application.Common.Interfaces;
 using Application.DTOs;
 using Domain.Entities;
+using Application.Helpers;
 
 namespace Application.Services;
 
@@ -21,26 +22,20 @@ public class AuthService : IAuthService
 
     public async Task RegisterAsync(registerRequestDTO request, CancellationToken ct = default)
     {
-        try
+            
+        if (await _user.ExistsByUserOrEmailAsync(request.UserName, request.UserEmail, ct))
         {
-            if (await _user.ExistsByUserOrEmailAsync(request.UserName, request.UserEmail, ct))
-            {
-                throw new Exception("User or Email already exists");
-            }
-
-            var user = new User
-            {
-                UserName = request.UserName,
-                UserEmail = request.UserEmail,
-                UserPasswordHash = _passhash.Hash(request.UserPassword)
-            };
-
-            await _user.AddAsync(user, ct);
+            throw new BaseException("User or Email already exists");
         }
-        catch (Exception ex)
+    
+        var user = new User
         {
-            throw new Exception("An error occurred during registration", ex);
-        }
+            UserName = request.UserName,
+            UserEmail = request.UserEmail,
+            UserPasswordHash = _passhash.Hash(request.UserPassword)
+        };
+
+        await _user.AddAsync(user, ct);
 
     }
 

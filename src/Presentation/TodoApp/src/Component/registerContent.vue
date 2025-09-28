@@ -4,7 +4,6 @@ import {ref} from 'vue'
 import axios from '@/lib/axios'
 import { useRouter } from 'vue-router';
 
-
 const bt = buttonT()
 bt.setButtonText('Login');
 const usname = ref<string>('');
@@ -46,10 +45,16 @@ async function loginU(user: users) {
         if(!token) throw new Error('Token is null');
         // luu vao localstorage 
         localStorage.setItem('accessToken', token);
+
         axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
         bt.setButtonText('Register');
-        await axios.get('/api/auth/profile');
-        await router.push('/home');
+        const profileRes = await axios.get('/api/auth/profile');
+        console.log('Profile response:', profileRes.data);
+        const userId = profileRes.data?.userId;
+        localStorage.setItem('UserId',userId);
+        console.log('Extracted userId:', userId);
+        console.log('Navigating to:', `/home/${userId}`);
+        await router.push(`/home/${userId}`);
     }
   catch (err) {
     console.error('login error', err);

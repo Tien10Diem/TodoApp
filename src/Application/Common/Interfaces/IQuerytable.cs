@@ -3,5 +3,6 @@ namespace Application.Common.Interfaces;
 
 public interface IQuery
 {
-    Task<PagedResult<UserDTO>> QueryTableAsync(int page = 1, int pageSize = 10, CancellationToken ct = default);
+    Task<PagedResult<JobsDTO>> QueryTableAsync(int userid, int page = 1, int pageSize = 5, CancellationToken ct = default);
+    Task<PagedResult<JobsDTO>> QueryBinTableAsync(int userid, int page = 1, int pageSize = 5, CancellationToken ct = default);
 }

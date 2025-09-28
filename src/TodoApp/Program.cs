@@ -39,8 +39,8 @@ builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IPasswordHasher, PasswordHash>();
 builder.Services.AddScoped<IAuthService, AuthService>();    
 builder.Services.AddScoped<Application.Services.AuthService>();
-builder.Services.AddScoped<IQuery, QueryTable>();
-
+builder.Services.AddScoped<IJobService, JobService>();
+builder.Services.AddScoped<IJobRepository, JobRepository>();
 builder.Services.AddControllers();
 
 builder.Services.AddEndpointsApiExplorer();

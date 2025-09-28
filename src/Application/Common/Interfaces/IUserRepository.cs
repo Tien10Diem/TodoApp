@@ -10,5 +10,5 @@ public interface IUserRepository
 
     Task<User?> GetByUserOrEmailAsync(string? userName, string? Email, CancellationToken ct = default);
     Task AddAsync(User user, CancellationToken ct = default);
-    public Task<PagedResult<User?>> GetUsersPagedAsync(int pageNumber, int pageSize, CancellationToken ct = default);
+    
 }

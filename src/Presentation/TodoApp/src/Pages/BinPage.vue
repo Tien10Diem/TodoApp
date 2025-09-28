@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import NavbarHome from '@/Component/navbarHome.vue';
-import TodoList from '@/Component/todoList.vue';
+import BinContent from '@/Component/BinContent.vue'
 
 defineProps<{
   userid: string
@@ -10,7 +10,7 @@ defineProps<{
 
 <template>
     <NavbarHome/>
-    <TodoList/>
+    <BinContent />
 </template>
 
 <style scoped></style>

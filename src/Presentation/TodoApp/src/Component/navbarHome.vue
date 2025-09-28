@@ -5,7 +5,7 @@ import { RouterLink } from 'vue-router'
 <template>
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">Navbar</a>
+      <RouterLink to="/add" class="navbar-brand" >Add</RouterLink>
       <button
         class="navbar-toggler"
         type="button"
@@ -20,7 +20,7 @@ import { RouterLink } from 'vue-router'
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
           <RouterLink class="nav-link active" to="/home">Home</RouterLink>
-          <RouterLink class="nav-link active" to="/home">Bin</RouterLink>
+          <RouterLink class="nav-link active" to="/bin">Bin</RouterLink>
           <RouterLink class="nav-link active" to="/">Log out</RouterLink>
         </div>
       </div>

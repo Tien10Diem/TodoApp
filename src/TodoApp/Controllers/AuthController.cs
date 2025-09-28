@@ -3,10 +3,7 @@ using Application.DTOs;
 using Application.Services;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
-using Microsoft.Extensions.Configuration;
-using Infrastructure.Helper;
-using Azure.Core;
-
+using Application.Helpers;
 namespace TodoApp.Controllers
 {
     [ApiController]
@@ -29,6 +26,10 @@ namespace TodoApp.Controllers
                 await _db.RegisterAsync(request);
                 return Ok(new { Message = "Register successfully" });
             }
+            catch (BaseException be)
+            {
+                return Conflict(new { message = be.Message });
+            }
             catch (ArgumentException e)
             {
                 return BadRequest(e);
@@ -50,6 +51,7 @@ namespace TodoApp.Controllers
             {
                 message = "Login successfully",
                 AccessToken = token,
+                userid =ok.UserId,
                 expriseIn = 60 * 1
              });
         }
